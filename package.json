@@ -1,0 +1,30 @@
+{
+  "name": "workspace",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rhgksrua/image-abstraction-layer"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rhgksrua/image-abstraction-layer/issues"
+  },
+  "homepage": "https://github.com/rhgksrua/image-abstraction-layer#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "jade": "^1.11.0",
+    "mongoose": "^4.4.10",
+    "morgan": "^1.7.0",
+    "request": "^2.69.0",
+    "shortid": "^2.2.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.9.1"
+  }
+}
