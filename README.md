@@ -23,10 +23,10 @@ Reference: [Bing Search API Schema Guide](https://onedrive.live.com/view.aspx?re
 ```JSON
 [
     {
-        url: "http://www.example.com/cat.png",
-        snippet: "Cats Cats Cats",
-        thumbnail: "www.example.com/catthumbnail.png",
-        context: "http://example.com"
+        "url": "http://www.example.com/cat.png",
+        "snippet": "Cats Cats Cats",
+        "thumbnail": "www.example.com/catthumbnail.png",
+        "context": "http://example.com"
     },
     {
         // 9 more results
