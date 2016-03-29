@@ -3,17 +3,17 @@
 var express = require('express');
 var request = require('request');
 var router = express.Router();
-//var validateUrl = require('../helpers/validateUrl');
-//var saveAndGenerate = require('../helpers/saveAndGenerate');
 
+// Mongoose
 var Searched = require('../models/Searched');
+
+// helper functions
 var buildQuery = require('../helpers/buildQuery');
-var saveSearchedTerm = require('../helper/saveSearchedTerm');
+var saveSearchedTerm = require('../helpers/saveSearchedTerm');
+var retrieveHistoryPromise = require('../helpers/retrieveHistory');
 
 router.get('/', indexController);
-
 router.get('/imagesearch/:term', imageSearchController);
-
 router.get('/latest/imagesearch', latestController);
 
 function indexController(req, res) {
@@ -22,6 +22,7 @@ function indexController(req, res) {
 }
 
 function imageSearchController(req, res) {
+    console.log('inside');
     var searchTerm = req.params.term;
     var offset = req.query.offset || 0;
     var apiUrl = buildQuery(searchTerm, offset);
@@ -29,22 +30,35 @@ function imageSearchController(req, res) {
     saveSearchedTerm(searchTerm);
     
     var error = {error: 'error'};
+    var options = {
+        auth: {
+            user: '',
+            pass: process.env.API_KEY
+        },
+        headers: {
+            'User-Agent': 'image-abstraction-layer-app'
+        }
+    };
     
-    request(apiUrl, function(err, response, body) {
+    request(apiUrl, options, function(err, response, body) {
         if (err) {
             return res.json(error);
         }
-        
         if (response.statusCode >= 300) {
             return res.json(error);
         }
-        
         if (response.statusCode < 300 && response.statusCode >= 200) {
-            return res.send(body);
+            var parsed = JSON.parse(body).d.results.map(function(el) {
+                return {
+                        url: el.MediaUrl,
+                        snippet: el.Title,
+                        thumbnail: el.Thumbnail.MediaUrl,
+                        context: el.SourceUrl
+                };
+            });
+            return res.json(parsed);
         }
-        
     });
-    
 }
 
 /**
@@ -54,8 +68,10 @@ function imageSearchController(req, res) {
  * @return response JSON
  */
 function latestController(req, res) {
-    res.json({});
-    
+    var result = retrieveHistoryPromise();
+    result.then(function(terms) {
+        res.json(terms);
+    });
 }
 
 module.exports = router;

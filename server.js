@@ -32,9 +32,6 @@ app.use(function(err, req, res, next) {
 app.use('/api', api);
 app.use('/', index);
 
-
-
-
 app.listen(port, function() {
     console.log('running on port: ' + port);
 })

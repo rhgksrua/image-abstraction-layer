@@ -4,13 +4,19 @@ html(lang="en")
         meta(name="viewport", content="width=device-width", initial-scale=1)
         link(rel="stylesheet", href="/main.css")
     body
-        h1 url shortener microservice
+        h1 image abstraction layer
         article
             h3 Usage 
-            p.code #{host}/api/new/http://www.example.com
+            p.code #{host}/api/imagesearch/cats[?offset=3]
+            p.info returns 10 results.
+            p.info Add offset query for pagination. i.e. offset=3 will return the 4th
+            p.info page
         article
             h3 Output
-            p.code { "origianl_url": 1450137600, "short_url": #{host}/Awei32l }
+            p.code [{
+            p.code     url: "http://www.example.com/cat.png",
+            p.code     snippet: "Cats Cats Cats",
+            p.code     thumbnail: "www.example.com/catthumbnail.png",
+            p.code     context: "http://example.com"
+            p.code }, ...]
         article
-            h3 Redirecting
-            p #{host}/Awei32l will redirect to www.example.com

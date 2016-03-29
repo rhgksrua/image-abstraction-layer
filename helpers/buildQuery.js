@@ -9,12 +9,18 @@
  * @return string url built based on term and offset
  */
 function buildQuery(term, offset) {
-    offset = offset || 0;
-    var url = "http://api.bing.net/json.aspx?";
-    url += "AppId" + process.env.API_KEY;
-    url += "&Query=" + term;
-    url += "&Image.Count=10";
-    url += "&Image.Offset=" + offset;
+    var num = 10;
+    offset = offset * num || 0;
+    
+    var url = "https://api.datamarket.azure.com/Bing/Search/Image";
+    url += "?Query=%27" + term + "%27";
+    url += "&$format=json";
+    url += "&$top=" + num;
+    url += "&$skip=" + offset;
+    
+    console.log(url);
     
     return url;
 }
+
+module.exports = buildQuery;
