@@ -20,7 +20,9 @@ Reference: [Bing Search API Schema Guide](https://onedrive.live.com/view.aspx?re
 
 ## Output
 
-```JSON
+Returns JSON
+
+```
 [
     {
         "url": "http://www.example.com/cat.png",
